@@ -1,0 +1,17 @@
+{
+  "name": "Mouse Odomteter",
+  "manifest_version": 2,
+  "version": "1.0",
+
+  "content_scripts": [
+    { "js": ["content.js"], "all_frames": true, "matches": ["<all_urls>"] }
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
+}
