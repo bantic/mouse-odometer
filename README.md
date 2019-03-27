@@ -1,5 +1,7 @@
 # Mouse Odometer Chrome Extension
 
+![Demo gif](./odom.gif)
+
 # TODO
 
 - Determine physical distance
