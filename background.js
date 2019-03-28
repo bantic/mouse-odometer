@@ -1,5 +1,3 @@
-console.log('bg');
-
 const MOVEMENT_TIME_THRESHHOLD = 100;
 const DEFAULT_TAB_ZOOM = 1;
 const DEFAULT_PIXELS_PER_INCH = 96;
@@ -11,7 +9,6 @@ let tabZooms = {};
 
 function init() {
   distance = parseFloat(window.localStorage['distance'] || '0');
-  console.log('init distance', distance);
 }
 init();
 
@@ -22,11 +19,16 @@ chrome.runtime.onMessage.addListener(handleMessage);
 chrome.tabs.onZoomChange.addListener(handleZoomChange);
 chrome.tabs.onRemoved.addListener(handleTabRemoved);
 
-function handleMessage({ type, data }, sender) {
+function handleMessage({ type, data }, sender, sendResponse) {
   if (type === 'mousemove') {
     handleMouseMove(data, sender);
   } else if (type === 'reset') {
     resetMovements();
+  } else if (type === 'calibrationResult') {
+    let { pixelsPerInch } = data;
+    setPixelsPerInch(pixelsPerInch);
+  } else if (type === 'getPPI') {
+    sendResponse(getPixelsPerInch());
   }
 }
 
@@ -51,7 +53,6 @@ function handleMouseMove({ clientX: x, clientY: y }, sender) {
 }
 
 function resetMovements() {
-  console.log('reset');
   movements = [];
   distance = 0;
   window.localStorage.removeItem('distance');
@@ -66,6 +67,7 @@ function recordMovement(movement) {
   if (!shouldRecord(prevMove, movement)) {
     return;
   }
+
   distance += distanceBetween(prevMove, movement);
   window.localStorage['distance'] = distance;
 
@@ -102,9 +104,14 @@ function getZoom(tabId) {
   return tabZooms[tabId] || DEFAULT_TAB_ZOOM;
 }
 
-// TODO -- can we do a better job?
 function getPixelsPerInch() {
-  return DEFAULT_PIXELS_PER_INCH;
+  return parseFloat(
+    window.localStorage['pixelsPerInch'] || DEFAULT_PIXELS_PER_INCH
+  );
+}
+
+function setPixelsPerInch(ppi) {
+  window.localStorage['pixelsPerInch'] = ppi;
 }
 
 function distanceBetween(moveA, moveB) {

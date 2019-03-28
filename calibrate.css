@@ -1,0 +1,17 @@
+body {
+  margin-left: 1px;
+}
+
+#box {
+  border-left: 4px solid black;
+  border-top: 4px solid black;
+  border-top-left-radius: 20px;
+  width: 6in;
+  height: 4in;
+}
+
+#slider {
+  width: 100%;
+  position: relative;
+  top: -5px;
+}

@@ -13,5 +13,9 @@
 
   "browser_action": {
     "default_popup": "popup.html"
-  }
+  },
+
+  "permissions": ["activeTab"],
+
+  "web_accessible_resources": ["calibrate.html"]
 }

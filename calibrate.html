@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Mouse Odometer: Calibrate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="calibrate.css" />
+  </head>
+  <body>
+    <h1>Mouse Odometer: Calibrate</h1>
+    <p>
+      Instructions:
+    </p>
+    <ol>
+      <li>
+        Place a credit card on the monitor so that it fits snugly with the black
+        border on its top and left sides.
+      </li>
+      <li>
+        Drag the slider so that it aligns with the right side of the card.
+      </li>
+      <li>
+        Click <button id="submit">Submit</button> to store your calibration.
+      </li>
+    </ol>
+    <div id="box">
+      <input type="range" id="slider" step="1" max="1000" value="1000" />
+    </div>
+    <script src="calibrate.js"></script>
+  </body>
+</html>
